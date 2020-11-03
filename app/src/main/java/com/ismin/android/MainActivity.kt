@@ -4,9 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         date = "1927"
     );
 
-    private lateinit var rcvBooks: RecyclerView
-    private lateinit var bookAdapter: BookAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +37,15 @@ class MainActivity : AppCompatActivity() {
         this.bookshelf.addBook(theHobbit)
         this.bookshelf.addBook(aLaRechercheDuTempsPerdu)
 
-        this.rcvBooks = findViewById(R.id.a_main_rcv_books)
-        bookAdapter = BookAdapter(bookshelf.getAllBooks())
-        this.rcvBooks.adapter = bookAdapter
-        val linearLayoutManager = LinearLayoutManager(this)
-        this.rcvBooks.layoutManager = linearLayoutManager
+        displayList()
+    }
 
-        val dividerItemDecoration = DividerItemDecoration(this, linearLayoutManager.orientation)
-        this.rcvBooks.addItemDecoration(dividerItemDecoration)
+    private fun displayList() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val bookListFragment = BookListFragment.newInstance(this.bookshelf.getAllBooks())
+
+        fragmentTransaction.replace(R.id.a_main_lyt_fragment_container, bookListFragment)
+        fragmentTransaction.commit()
     }
 
     fun goToCreation(view: View) {
@@ -62,8 +58,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == this.createBookActivityRequestCode) {
             val book = data?.extras?.get(CREATED_BOOK_EXTRA_KEY) as Book
             bookshelf.addBook(book)
-            bookAdapter.refreshData(bookshelf.getAllBooks())
-            bookAdapter.notifyDataSetChanged()
+            displayList()
         }
     }
 }

@@ -4,20 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".BookListFragment">
 
-    <FrameLayout
-        android:id="@+id/a_main_lyt_fragment_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/f_book_list_rcv_books"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/a_main_btn_creation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="goToCreation"
-        android:text="Creation"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="7"
+        tools:listitem="@layout/row_book" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
