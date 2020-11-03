@@ -1,15 +1,13 @@
 package com.ismin.android
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 class CreateBookFragment : Fragment() {
 
@@ -20,6 +18,10 @@ class CreateBookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_create_book, container, false)
+
+        rootView.findViewById<View>(R.id.f_create_book_view_clicker).setOnClickListener {
+            listener.closeBookCreation()
+        }
 
         rootView.findViewById<Button>(R.id.f_create_book_btn_save).setOnClickListener {
             val title =
@@ -48,4 +50,5 @@ class CreateBookFragment : Fragment() {
 
 interface BookCreator {
     fun onBookCreated(book: Book)
+    fun closeBookCreation()
 }

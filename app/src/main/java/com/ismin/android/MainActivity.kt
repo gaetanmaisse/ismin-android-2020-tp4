@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), BookCreator {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val createBookFragment = CreateBookFragment()
 
-        fragmentTransaction.replace(R.id.a_main_lyt_fragment_container, createBookFragment)
+        fragmentTransaction.add(R.id.a_main_lyt_fragment_container, createBookFragment)
         fragmentTransaction.commit()
 
         a_main_btn_creation.visibility = View.GONE
@@ -67,6 +67,10 @@ class MainActivity : AppCompatActivity(), BookCreator {
 
     override fun onBookCreated(book: Book) {
         bookshelf.addBook(book)
+        displayList()
+    }
+
+    override fun closeBookCreation() {
         displayList()
     }
 
@@ -85,5 +89,6 @@ class MainActivity : AppCompatActivity(), BookCreator {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
 }
