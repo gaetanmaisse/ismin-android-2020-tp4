@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), BookCreator {
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity(), BookCreator {
 
         fragmentTransaction.replace(R.id.a_main_lyt_fragment_container, bookListFragment)
         fragmentTransaction.commit()
+
+        a_main_btn_creation.visibility = View.VISIBLE
     }
 
     private fun displayCreation() {
@@ -54,6 +57,8 @@ class MainActivity : AppCompatActivity(), BookCreator {
 
         fragmentTransaction.replace(R.id.a_main_lyt_fragment_container, createBookFragment)
         fragmentTransaction.commit()
+
+        a_main_btn_creation.visibility = View.GONE
     }
 
     fun goToCreation(view: View) {
