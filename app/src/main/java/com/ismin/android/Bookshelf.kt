@@ -23,4 +23,8 @@ class Bookshelf {
     fun getTotalNumberOfBooks(): Int {
         return this.storage.size
     }
+
+    fun clear(): Unit {
+        this.storage.clear()
+    }
 }
