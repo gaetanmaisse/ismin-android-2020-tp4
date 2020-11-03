@@ -1,13 +1,11 @@
 package com.ismin.android
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 
-class MainActivity : AppCompatActivity() {
-    private val createBookActivityRequestCode = 1;
+class MainActivity : AppCompatActivity(), BookCreator {
     private val TAG = MainActivity::class.simpleName
 
     private val bookshelf = Bookshelf()
@@ -48,17 +46,20 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    fun goToCreation(view: View) {
-        val intent = Intent(this, CreateBookActivity::class.java)
-        startActivityForResult(intent, this.createBookActivityRequestCode)
+    private fun displayCreation() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val createBookFragment = CreateBookFragment()
+
+        fragmentTransaction.replace(R.id.a_main_lyt_fragment_container, createBookFragment)
+        fragmentTransaction.commit()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == this.createBookActivityRequestCode) {
-            val book = data?.extras?.get(CREATED_BOOK_EXTRA_KEY) as Book
-            bookshelf.addBook(book)
-            displayList()
-        }
+    fun goToCreation(view: View) {
+        displayCreation()
+    }
+
+    override fun onBookCreated(book: Book) {
+        bookshelf.addBook(book)
+        displayList()
     }
 }
